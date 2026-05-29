@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.16/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.16/jcommon-1.0.16-junit.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.16/jcommon-xml-1.0.16.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.19/jfreechart-1.0.19-demo.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-j-9.7.0/mysql-connector-j-9.7.0/mysql-connector-j-9.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/jbcrypt-0.4.jar"/>
+	<classpathentry kind="lib" path="lib/poi-5.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-5.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-5.1.1 (1).jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.15.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress-1.24.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-full-5.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.21.1 (1).jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
