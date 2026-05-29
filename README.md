@@ -5,3 +5,8 @@
 - Full CRUD for Spotify tracks 
 - Export to CSV 
 - 8 JUnit 5 tests passing 
+## Setup 
+1. Install MySQL 9.5 
+2. Run schema.sql in MySQL Workbench 
+3. Open SpotifyManager in Eclipse 
+4. Run Main.java 
