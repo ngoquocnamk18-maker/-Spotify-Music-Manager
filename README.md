@@ -10,3 +10,8 @@
 2. Run schema.sql in MySQL Workbench 
 3. Open SpotifyManager in Eclipse 
 4. Run Main.java 
+## Technologies 
+- Java 21, Swing, JDBC 
+- MySQL 9.5, BCrypt 
+- JFreeChart 1.0.19 
+- JUnit 5 
