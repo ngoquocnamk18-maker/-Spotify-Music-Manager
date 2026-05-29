@@ -4,12 +4,12 @@ A Java desktop application for managing and analyzing Spotify music data.
 Built as the final project for ITE23005 Object-Oriented Programming at SIU.
 
 ## Features
-- 🔐 Secure login with BCrypt password hashing (Admin / Viewer roles)
-- 📊 Dashboard with KPI cards and 2 JFreeChart visualizations
-- 🎵 Full CRUD for 3,000 Spotify tracks
-- 🔍 Search and filter by genre
-- 📥 CSV export compatible with Excel
-- ✅ 8/8 JUnit 5 tests passing
+-  Secure login with BCrypt password hashing (Admin / Viewer roles)
+-  Dashboard with KPI cards and 2 JFreeChart visualizations
+-  Full CRUD for 3,000 Spotify tracks
+-  Search and filter by genre
+-  CSV export compatible with Excel
+-  8/8 JUnit 5 tests passing
 
 ## Prerequisites
 - Java 21+
