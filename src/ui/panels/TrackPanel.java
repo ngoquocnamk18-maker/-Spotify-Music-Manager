@@ -12,7 +12,6 @@ import java.awt.*;
 import java.util.List;
 
 public class TrackPanel extends JPanel {
-
     private User currentUser;
     private TrackDAO trackDAO;
     private GenreDAO genreDAO;
@@ -20,11 +19,9 @@ public class TrackPanel extends JPanel {
     private DefaultTableModel tableModel;
     private JTextField txtSearch;
     private JComboBox<Genre> cmbGenre;
-
     private static final String[] COLUMNS = {
         "Track ID", "Title", "Artist", "Album", "Genre", "Popularity", "Duration", "Explicit"
     };
-
     public TrackPanel(User user) {
         this.currentUser = user;
         this.trackDAO = new TrackDAO();
@@ -32,14 +29,11 @@ public class TrackPanel extends JPanel {
         initUI();
         loadData();
     }
-
     private void initUI() {
         setLayout(new BorderLayout());
         setBackground(new Color(40, 40, 40));
-
         // Top toolbar
         add(createToolbar(), BorderLayout.NORTH);
-
         // Table
         tableModel = new DefaultTableModel(COLUMNS, 0) {
             @Override
@@ -55,23 +49,16 @@ public class TrackPanel extends JPanel {
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 13));
         table.setSelectionBackground(new Color(30, 215, 96, 100));
         table.setFont(new Font("Arial", Font.PLAIN, 13));
-
-        // Ẩn cột Track ID
         table.getColumnModel().getColumn(0).setMinWidth(0);
         table.getColumnModel().getColumn(0).setMaxWidth(0);
-
         add(new JScrollPane(table), BorderLayout.CENTER);
-
-        // Bottom buttons (chỉ admin mới thấy Add/Edit/Delete)
         if (currentUser.isAdmin()) {
             add(createButtonPanel(), BorderLayout.SOUTH);
         }
     }
-
     private JPanel createToolbar() {
         JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 8));
         toolbar.setBackground(new Color(30, 30, 30));
-
         // Search
         txtSearch = new JTextField(20);
         txtSearch.putClientProperty("JTextField.placeholderText", "Tìm bài hát, nghệ sĩ...");
@@ -80,7 +67,6 @@ public class TrackPanel extends JPanel {
         btnSearch.setForeground(Color.BLACK);
         btnSearch.addActionListener(e -> searchTracks());
         txtSearch.addActionListener(e -> searchTracks());
-
         // Genre filter
         JLabel lblGenre = new JLabel("Genre:");
         lblGenre.setForeground(Color.WHITE);
@@ -88,30 +74,24 @@ public class TrackPanel extends JPanel {
         cmbGenre.addItem(new Genre(0, "-- All Genres --"));
         genreDAO.findAll().forEach(cmbGenre::addItem);
         cmbGenre.addActionListener(e -> filterByGenre());
-
         // Refresh
         JButton btnRefresh = new JButton("🔄 Refresh");
         btnRefresh.addActionListener(e -> loadData());
-
         toolbar.add(txtSearch);
         toolbar.add(btnSearch);
         toolbar.add(new JSeparator(SwingConstants.VERTICAL));
         toolbar.add(lblGenre);
         toolbar.add(cmbGenre);
         toolbar.add(btnRefresh);
-
         return toolbar;
     }
-
     private JPanel createButtonPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 8));
         panel.setBackground(new Color(30, 30, 30));
-
         JButton btnAdd    = new JButton("➕ Add");
         JButton btnEdit   = new JButton("✏️ Edit");
         JButton btnDelete = new JButton("🗑️ Delete");
         JButton btnExport = new JButton("📥 Export Excel");
-
         btnAdd.setBackground(new Color(30, 215, 96));
         btnAdd.setForeground(Color.BLACK);
         btnEdit.setBackground(new Color(30, 150, 255));
@@ -120,7 +100,6 @@ public class TrackPanel extends JPanel {
         btnDelete.setForeground(Color.WHITE);
         btnExport.setBackground(new Color(255, 165, 0));
         btnExport.setForeground(Color.BLACK);
-
         btnAdd.addActionListener(e -> addTrack());
         btnEdit.addActionListener(e -> editTrack());
         btnDelete.addActionListener(e -> deleteTrack());
@@ -131,14 +110,12 @@ public class TrackPanel extends JPanel {
                 (JFrame) SwingUtilities.getWindowAncestor(this)
             );
         });
-
         panel.add(btnAdd);
         panel.add(btnEdit);
         panel.add(btnDelete);
         panel.add(btnExport);
         return panel;
     }
-
     private void loadData() {
         SwingWorker<List<Track>, Void> worker = new SwingWorker<>() {
             @Override
@@ -154,7 +131,6 @@ public class TrackPanel extends JPanel {
         };
         worker.execute();
     }
-
     private void searchTracks() {
         String keyword = txtSearch.getText().trim();
         if (keyword.isEmpty()) { loadData(); return; }
@@ -171,7 +147,6 @@ public class TrackPanel extends JPanel {
         };
         worker.execute();
     }
-
     private void filterByGenre() {
         Genre selected = (Genre) cmbGenre.getSelectedItem();
         if (selected == null || selected.getGenreId() == 0) { loadData(); return; }
@@ -188,7 +163,6 @@ public class TrackPanel extends JPanel {
         };
         worker.execute();
     }
-
     private void populateTable(List<Track> tracks) {
         tableModel.setRowCount(0);
         for (Track t : tracks) {
@@ -204,7 +178,6 @@ public class TrackPanel extends JPanel {
             });
         }
     }
-
     private void addTrack() {
         TrackDialog dialog = new TrackDialog(
             (Frame) SwingUtilities.getWindowAncestor(this), null
@@ -212,7 +185,6 @@ public class TrackPanel extends JPanel {
         dialog.setVisible(true);
         if (dialog.isSaved()) loadData();
     }
-
     private void editTrack() {
         int row = table.getSelectedRow();
         if (row < 0) {
@@ -228,7 +200,6 @@ public class TrackPanel extends JPanel {
             if (dialog.isSaved()) loadData();
         });
     }
-
     private void deleteTrack() {
         int row = table.getSelectedRow();
         if (row < 0) {

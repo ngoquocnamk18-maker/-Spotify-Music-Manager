@@ -1,22 +1,19 @@
 package ui;
 
 import model.User;
+import ui.panels.MusicChartPanel;
 import ui.panels.TrackPanel;
 import ui.panels.DashboardPanel;
 import javax.swing.*;
 import java.awt.*;
-
 public class MainFrame extends JFrame {
-
     private User currentUser;
     private JPanel contentPanel;
     private CardLayout cardLayout;
-
     public MainFrame(User user) {
         this.currentUser = user;
         initUI();
     }
-
     private void initUI() {
         setTitle("Spotify Manager — " + currentUser.getFullName());
         setSize(1200, 700);
@@ -29,10 +26,10 @@ public class MainFrame extends JFrame {
         contentPanel = new JPanel(cardLayout);
         contentPanel.add(new DashboardPanel(currentUser), "dashboard");
         contentPanel.add(new TrackPanel(currentUser), "tracks");
+        contentPanel.add(new MusicChartPanel(), "charts");
         add(contentPanel, BorderLayout.CENTER);
         cardLayout.show(contentPanel, "dashboard");
     }
-
     private JPanel createHeader() {
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(new Color(18, 18, 18));
@@ -66,7 +63,6 @@ public class MainFrame extends JFrame {
         header.add(rightPanel, BorderLayout.EAST);
         return header;
     }
-
     private JPanel createSidebar() {
         JPanel sidebar = new JPanel();
         sidebar.setBackground(new Color(25, 25, 25));
@@ -75,11 +71,10 @@ public class MainFrame extends JFrame {
         sidebar.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         sidebar.add(createNavButton("📊 Dashboard", "dashboard"));
         sidebar.add(createNavButton("🎵 Tracks", "tracks"));
-        sidebar.add(createNavButton("📈 Charts", "dashboard"));
+        sidebar.add(createNavButton("📈 Charts", "charts"));
         sidebar.add(Box.createVerticalGlue());
         return sidebar;
     }
-
     private JButton createNavButton(String text, String card) {
         JButton btn = new JButton(text);
         btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));

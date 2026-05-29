@@ -13,14 +13,10 @@ public class Track {
     private double loudness;
     private double tempo;
     private double valence;
-
-    // Tên hiển thị (join từ bảng khác)
     private String albumName;
     private String genreName;
     private String artistNames;
-
     public Track() {}
-
     public Track(String trackId, String trackName, int albumId,
                  int genreId, int popularity, int durationMs, boolean explicit,
                  double danceability, double energy, double loudness,
@@ -38,8 +34,6 @@ public class Track {
         this.tempo = tempo;
         this.valence = valence;
     }
-
-    // Getters & Setters
     public String getTrackId() { return trackId; }
     public void setTrackId(String trackId) { this.trackId = trackId; }
     public String getTrackName() { return trackName; }
@@ -70,13 +64,10 @@ public class Track {
     public void setGenreName(String genreName) { this.genreName = genreName; }
     public String getArtistNames() { return artistNames; }
     public void setArtistNames(String artistNames) { this.artistNames = artistNames; }
-
-    // Duration đẹp: 3:45
     public String getDurationFormatted() {
         int totalSec = durationMs / 1000;
         return String.format("%d:%02d", totalSec / 60, totalSec % 60);
     }
-
     @Override
     public String toString() { return trackName; }
 }

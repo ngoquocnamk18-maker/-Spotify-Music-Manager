@@ -18,9 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MusicChartPanel extends JPanel {
-
     private TrackDAO trackDAO;
-
     public MusicChartPanel() {
         this.trackDAO = new TrackDAO();
         setLayout(new GridLayout(1, 2, 10, 0));
@@ -28,13 +26,12 @@ public class MusicChartPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         loadCharts();
     }
-
     public void loadCharts() {
         removeAll();
         SwingWorker<List<Track>, Void> worker = new SwingWorker<>() {
             @Override
             protected List<Track> doInBackground() {
-                return trackDAO.findAll(1, 500);
+                return trackDAO.findAll(1, 2000);
             }
             @Override
             protected void done() {
@@ -51,19 +48,14 @@ public class MusicChartPanel extends JPanel {
         };
         worker.execute();
     }
-
     private ChartPanel buildBarChart(List<Track> tracks) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        // Tính popularity trung bình theo genre bằng Stream API
         Map<String, Double> avgPopByGenre = tracks.stream()
             .filter(t -> t.getGenreName() != null)
             .collect(Collectors.groupingBy(
                 Track::getGenreName,
                 Collectors.averagingInt(Track::getPopularity)
             ));
-
-        // Lấy top 10 genre phổ biến nhất
         avgPopByGenre.entrySet().stream()
             .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
             .limit(10)
@@ -72,7 +64,6 @@ public class MusicChartPanel extends JPanel {
                 "Avg Popularity",
                 e.getKey()
             ));
-
         JFreeChart chart = ChartFactory.createBarChart(
             "Top 10 Genres by Avg Popularity",
             "Genre", "Avg Popularity",
@@ -80,11 +71,8 @@ public class MusicChartPanel extends JPanel {
             PlotOrientation.VERTICAL,
             false, true, false
         );
-
-        // Tùy chỉnh màu sắc
         chart.setBackgroundPaint(new Color(40, 40, 40));
         chart.getTitle().setPaint(Color.WHITE);
-
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setBackgroundPaint(new Color(50, 50, 50));
         plot.setRangeGridlinePaint(Color.GRAY);
@@ -94,14 +82,10 @@ public class MusicChartPanel extends JPanel {
         plot.getRangeAxis().setTickLabelPaint(Color.WHITE);
         plot.getRangeAxis().setLabelPaint(Color.WHITE);
         plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
-
         return new ChartPanel(chart);
     }
-
     private ChartPanel buildPieChart(List<Track> tracks) {
         DefaultPieDataset dataset = new DefaultPieDataset();
-
-        // Đếm số bài theo genre bằng Stream API
         tracks.stream()
             .filter(t -> t.getGenreName() != null)
             .collect(Collectors.groupingBy(
@@ -117,17 +101,13 @@ public class MusicChartPanel extends JPanel {
             "Track Distribution by Genre",
             dataset, true, true, false
         );
-
-        // Tùy chỉnh màu sắc
         chart.setBackgroundPaint(new Color(40, 40, 40));
         chart.getTitle().setPaint(Color.WHITE);
-
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setBackgroundPaint(new Color(50, 50, 50));
         plot.setLabelBackgroundPaint(new Color(60, 60, 60));
         plot.setLabelPaint(Color.WHITE);
         plot.setOutlinePaint(null);
-
         Color[] colors = {
             new Color(30, 215, 96),  new Color(30, 150, 255),
             new Color(255, 165, 0),  new Color(220, 50, 50),
@@ -138,10 +118,8 @@ public class MusicChartPanel extends JPanel {
         for (int i = 0; i < keys.size(); i++) {
             plot.setSectionPaint((Comparable<?>) keys.get(i), colors[i % colors.length]);
         }
-
         chart.getLegend().setBackgroundPaint(new Color(40, 40, 40));
         chart.getLegend().setItemPaint(Color.WHITE);
-
         return new ChartPanel(chart);
     }
 }

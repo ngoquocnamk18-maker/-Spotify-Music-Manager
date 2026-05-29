@@ -6,13 +6,10 @@ import java.sql.*;
 import java.util.Optional;
 
 public class UserDAO {
-
     private Connection conn;
-
     public UserDAO() {
         this.conn = DatabaseConnection.getInstance().getConnection();
     }
-
     public Optional<User> findByUsername(String username) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "SELECT * FROM users WHERE username=?")) {
@@ -30,7 +27,6 @@ public class UserDAO {
         } catch (SQLException e) { e.printStackTrace(); }
         return Optional.empty();
     }
-
     public boolean updateLastLogin(int userId) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "UPDATE users SET last_login=NOW() WHERE user_id=?")) {
@@ -38,7 +34,6 @@ public class UserDAO {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) { e.printStackTrace(); return false; }
     }
-
     public boolean updatePassword(int userId, String newHash) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "UPDATE users SET password_hash=? WHERE user_id=?")) {

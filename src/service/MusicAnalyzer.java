@@ -7,8 +7,6 @@ import java.util.*;
 import java.util.stream.*;
 
 public class MusicAnalyzer {
-
-    // Stream API: Convert Track list sang TrackDTO list
     public static List<TrackDTO> toTrackDTOs(List<Track> tracks) {
         return tracks.stream()
             .filter(t -> t.getTrackName() != null)
@@ -22,8 +20,6 @@ public class MusicAnalyzer {
             ))
             .collect(Collectors.toList());
     }
-
-    // Stream API: Thống kê theo genre
     public static List<SongStatsDTO> analyzeByGenre(List<Track> tracks) {
         return tracks.stream()
             .filter(t -> t.getGenreName() != null)
@@ -42,29 +38,21 @@ public class MusicAnalyzer {
             .sorted(Comparator.comparingDouble(SongStatsDTO::avgPopularity).reversed())
             .collect(Collectors.toList());
     }
-
-    // Stream API: Tìm top N bài phổ biến nhất
     public static List<Track> getTopTracks(List<Track> tracks, int n) {
         return tracks.stream()
             .sorted(Comparator.comparingInt(Track::getPopularity).reversed())
             .limit(n)
             .collect(Collectors.toList());
     }
-
-    // Stream API: Lọc theo khoảng popularity
     public static List<Track> filterByPopularity(List<Track> tracks, int min, int max) {
         return tracks.stream()
             .filter(t -> t.getPopularity() >= min && t.getPopularity() <= max)
             .collect(Collectors.toList());
     }
-
-    // Optional: Tìm bài có popularity cao nhất
     public static Optional<Track> findMostPopular(List<Track> tracks) {
         return tracks.stream()
             .max(Comparator.comparingInt(Track::getPopularity));
     }
-
-    // Switch expression (Java 14+)
     public static String classifyPopularity(int popularity) {
         return switch (popularity / 20) {
             case 5    -> "🔥 Viral";
@@ -75,8 +63,6 @@ public class MusicAnalyzer {
             default   -> "❄️ Unknown";
         };
     }
-
-    // Stream: Đếm bài theo explicit
     public static Map<Boolean, Long> countByExplicit(List<Track> tracks) {
         return tracks.stream()
             .collect(Collectors.partitioningBy(

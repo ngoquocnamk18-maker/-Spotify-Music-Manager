@@ -6,16 +6,13 @@ public class User {
     private String passwordHash;
     private String role;
     private String fullName;
-
     public User() {}
-
     public User(int userId, String username, String role, String fullName) {
         this.userId = userId;
         this.username = username;
         this.role = role;
         this.fullName = fullName;
     }
-
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
     public String getUsername() { return username; }
@@ -27,7 +24,6 @@ public class User {
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
     public boolean isAdmin() { return "admin".equals(role); }
-
     @Override
     public String toString() { return fullName + " (" + role + ")"; }
 }

@@ -7,14 +7,10 @@ import java.sql.*;
 import java.util.*;
 
 public class TrackDAO implements BaseDAO<Track> {
-
     private Connection conn;
-
     public TrackDAO() {
         this.conn = DatabaseConnection.getInstance().getConnection();
     }
-
-    // Tìm theo ID
     @Override
     public Optional<Track> findById(String id) {
         String sql = "SELECT t.*, a.album_name, g.genre_name, " +
@@ -32,14 +28,10 @@ public class TrackDAO implements BaseDAO<Track> {
         } catch (SQLException e) { e.printStackTrace(); }
         return Optional.empty();
     }
-
-    // Lấy tất cả
     @Override
     public List<Track> findAll() {
         return findAll(1, 1000);
     }
-
-    // Phân trang
     @Override
     public List<Track> findAll(int page, int pageSize) {
         List<Track> list = new ArrayList<>();
@@ -61,8 +53,6 @@ public class TrackDAO implements BaseDAO<Track> {
         } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
-
-    // Tìm kiếm theo tên
     public List<Track> search(String keyword) {
         List<Track> list = new ArrayList<>();
         String sql = "SELECT t.*, a.album_name, g.genre_name, " +
@@ -82,8 +72,6 @@ public class TrackDAO implements BaseDAO<Track> {
         } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
-
-    // Lọc theo genre
     public List<Track> findByGenre(int genreId) {
         List<Track> list = new ArrayList<>();
         String sql = "SELECT t.*, a.album_name, g.genre_name, " +
@@ -102,8 +90,6 @@ public class TrackDAO implements BaseDAO<Track> {
         } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
-
-    // Thêm mới
     @Override
     public boolean save(Track t) {
         String sql = "INSERT INTO tracks (track_id, track_name, album_id, genre_id, " +
@@ -125,8 +111,6 @@ public class TrackDAO implements BaseDAO<Track> {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) { e.printStackTrace(); return false; }
     }
-
-    // Cập nhật
     @Override
     public boolean update(Track t) {
         String sql = "UPDATE tracks SET track_name=?, popularity=?, " +
@@ -143,8 +127,6 @@ public class TrackDAO implements BaseDAO<Track> {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) { e.printStackTrace(); return false; }
     }
-
-    // Xóa
     @Override
     public boolean delete(String id) {
         try (PreparedStatement ps = conn.prepareStatement(
@@ -153,8 +135,6 @@ public class TrackDAO implements BaseDAO<Track> {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) { e.printStackTrace(); return false; }
     }
-
-    // Map ResultSet → Track object
     private Track mapRow(ResultSet rs) throws SQLException {
         Track t = new Track();
         t.setTrackId(rs.getString("track_id"));
@@ -174,8 +154,6 @@ public class TrackDAO implements BaseDAO<Track> {
         t.setArtistNames(rs.getString("artist_names"));
         return t;
     }
-
-    // Đếm tổng số bài
     public int countAll() {
         try (Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM tracks")) {

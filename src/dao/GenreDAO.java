@@ -6,13 +6,10 @@ import java.sql.*;
 import java.util.*;
 
 public class GenreDAO {
-
     private Connection conn;
-
     public GenreDAO() {
         this.conn = DatabaseConnection.getInstance().getConnection();
     }
-
     public List<Genre> findAll() {
         List<Genre> list = new ArrayList<>();
         try (Statement st = conn.createStatement();
@@ -27,7 +24,6 @@ public class GenreDAO {
         } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
-
     public Optional<Genre> findById(String id) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "SELECT * FROM genres WHERE genre_id=?")) {

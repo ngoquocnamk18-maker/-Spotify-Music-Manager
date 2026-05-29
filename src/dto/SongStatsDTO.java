@@ -1,6 +1,5 @@
 package dto;
 
-//Record cho thống kê
 public record SongStatsDTO(
  String genreName,
  long trackCount,

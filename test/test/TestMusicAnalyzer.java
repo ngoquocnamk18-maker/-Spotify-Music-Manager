@@ -74,10 +74,8 @@ public class TestMusicAnalyzer {
         t5.setGenreName("pop");
         t5.setPopularity(10);
         t5.setDurationMs(180000);
-
         sampleTracks.addAll(List.of(t1, t2, t3, t4, t5));
     }
-
     // Test 1: getTopTracks trả về đúng số lượng
     @Test
     @DisplayName("Test getTopTracks returns correct count")
@@ -85,7 +83,6 @@ public class TestMusicAnalyzer {
         var top3 = MusicAnalyzer.getTopTracks(sampleTracks, 3);
         assertEquals(3, top3.size(), "Should return exactly 3 tracks");
     }
-
     // Test 2: getTopTracks sắp xếp đúng thứ tự
     @Test
     @DisplayName("Test getTopTracks returns highest popularity first")
@@ -94,7 +91,6 @@ public class TestMusicAnalyzer {
         assertEquals("Shape of You", top2.get(0).getTrackName());
         assertEquals("Blinding Lights", top2.get(1).getTrackName());
     }
-
     // Test 3: filterByPopularity lọc đúng
     @Test
     @DisplayName("Test filterByPopularity filters correctly")
@@ -104,7 +100,6 @@ public class TestMusicAnalyzer {
         assertTrue(filtered.stream()
             .allMatch(t -> t.getPopularity() >= 85 && t.getPopularity() <= 95));
     }
-
     // Test 4: findMostPopular trả về đúng
     @Test
     @DisplayName("Test findMostPopular returns correct track")
@@ -114,7 +109,6 @@ public class TestMusicAnalyzer {
         assertEquals("Shape of You", most.get().getTrackName());
         assertEquals(95, most.get().getPopularity());
     }
-
     // Test 5: classifyPopularity trả về đúng label
     @Test
     @DisplayName("Test classifyPopularity returns correct labels")
@@ -125,7 +119,6 @@ public class TestMusicAnalyzer {
         assertEquals("😐 Average",       MusicAnalyzer.classifyPopularity(40));
         assertEquals("📉 Below Average", MusicAnalyzer.classifyPopularity(20));
     }
-
     // Test 6: countByExplicit đếm đúng
     @Test
     @DisplayName("Test countByExplicit counts correctly")
@@ -134,7 +127,6 @@ public class TestMusicAnalyzer {
         assertEquals(1L, counts.get(true),  "Should have 1 explicit track");
         assertEquals(4L, counts.get(false), "Should have 4 non-explicit tracks");
     }
-
     // Test 7: TrackDTO validation - tên trống throw exception
     @Test
     @DisplayName("Test TrackDTO throws on blank name")
@@ -143,7 +135,6 @@ public class TestMusicAnalyzer {
             new TrackDTO("id", "  ", "artist", "genre", 50, "3:00")
         );
     }
-
     // Test 8: TrackDTO summary format đúng
     @Test
     @DisplayName("Test TrackDTO summary format")
