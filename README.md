@@ -15,3 +15,5 @@
 - MySQL 9.5, BCrypt 
 - JFreeChart 1.0.19 
 - JUnit 5 
+## Author 
+Ngo Quoc Nam - SIU 2025-2026 
